@@ -32,6 +32,7 @@ class SleepQualityViewModel(
         super.onCleared()
         viewModelJob.cancel()
     }
+
     private val _navigateToSleepTracker = MutableLiveData<Boolean?>()
 
     val navigateToSleepTracker: LiveData<Boolean?>
@@ -64,4 +65,3 @@ class SleepQualityViewModel(
         }
     }
 }
-
