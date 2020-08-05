@@ -52,7 +52,7 @@ class SleepTrackerViewModel(
         }
     }
 
-    private  suspend fun getTonightFromDatabase(): SleepNight? {
+    private suspend fun getTonightFromDatabase(): SleepNight? {
         return withContext(Dispatchers.IO) {
             var night = database.getTonight()
             if (night?.endTimeMilli != night?.startTimeMilli) {
@@ -104,17 +104,17 @@ class SleepTrackerViewModel(
         }
     }
 
-    fun onClear(){
+    fun onClear() {
         uiScope.launch {
             deleteAllNight()
             tonight.value = null
-            _showSnackbarEvent.value = true
+
 
         }
     }
 
     private suspend fun deleteAllNight() {
-        withContext(Dispatchers.IO){
+        withContext(Dispatchers.IO) {
             database.clear()
         }
     }
@@ -130,22 +130,5 @@ class SleepTrackerViewModel(
     }
 
 
-    val startButtonVisible = Transformations.map(tonight) {
-        it == null
-    }
-    val stopButtonVisible = Transformations.map(tonight) {
-        it != null
-    }
-    val clearButtonVisible = Transformations.map(nights) {
-        it?.isNotEmpty()
-    }
 
-    private var _showSnackbarEvent = MutableLiveData<Boolean>()
-
-    val showSnackBarEvent: LiveData<Boolean>
-        get() = _showSnackbarEvent
-    fun doneShowingSnackbar() {
-        _showSnackbarEvent.value = false
-
-    }
 }
